@@ -80,8 +80,15 @@ The project is being developed incrementally, starting with a basic Flask applic
 - `python3 -m venv .venv` - Create virtual environment
 - `source .venv/bin/activate` - Activating VE
 - `pip install Flask`
-- `pip freeze : requirements.txt` - save independecies
+- `pip freeze > requirements.txt` - save independecies
 - create **app.py** and run with `python app.py` command in terminal.
 - I can see result in internet browser on address `http://127.0.0.1:5000` ("Book Library is running!")
 - 
 **VS code->Python->Flask->http://127.0.0.1:5000->Book Library is running!**
+
+### Aug 31, 2026 - Flask - SQLAlchemy PyMySQL
+- `pip install Flask-SQLAlchemy PyMySQL` -> for communicating with MariaDB
+- `pip install python-dotenv` -> for handling .env files
+- `pip freeze > requirements.txt`
+- creating .env secret file
+- 

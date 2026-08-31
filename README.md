@@ -74,3 +74,14 @@ The project is planned to include:
 🚧 **Work in progress**
 
 The project is being developed incrementally, starting with a basic Flask application and gradually adding database integration, containerization, CI/CD and orchestration.
+
+### Aug 31, 2026 - Initial project setup
+- Create: .gitignore
+- `python3 -m venv .venv` - Create virtual environment
+- `source .venv/bin/activate` - Activating VE
+- `pip install Flask`
+- `pip freeze : requirements.txt` - save independecies
+- create **app.py** and run with `python app.py` command in terminal.
+- I can see result in internet browser on address `http://127.0.0.1:5000` ("Book Library is running!")
+- 
+**VS code->Python->Flask->http://127.0.0.1:5000->Book Library is running!**

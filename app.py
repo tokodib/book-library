@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
@@ -27,6 +27,20 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 db = SQLAlchemy(app)
 
+class Book(db.Model):
+    __tablename__ = 'konyvek'
+
+    ID = db.Column(db.Integer, primary_key=True)
+    Iro = db.Column(db.String(100), nullable=False)
+    Kiado = db.Column(db.String(50), nullable=True)
+    Tema = db.Column(db.String(50), nullable=False)
+    Cim = db.Column(db.String(150), nullable=False)
+    Leiras = db.Column(db.LargeBinary, nullable=True)
+    Kep = db.Column(db.LargeBinary, nullable=True)
+    ISBN = db.Column(db.String(15), nullable=True)
+    KiadasEve = db.Column(db.Integer, nullable=True)
+    Nyelv = db.Column(db.String(15), nullable=True)
+
 @app.route('/')
 def index():
     return "Book Library is running!"
@@ -38,6 +52,10 @@ def test_db():
 
     return f"Database connection OK: {count}"
 
+@app.route('/books')
+def get_books():
+    books = Book.query.all()
+    return render_template('books.html', books=books)
 
 if __name__ == '__main__':
     app.run(debug=True)

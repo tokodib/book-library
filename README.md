@@ -91,4 +91,6 @@ The project is being developed incrementally, starting with a basic Flask applic
 - `pip install python-dotenv` -> for handling .env files
 - `pip freeze > requirements.txt`
 - creating .env secret file
-- 
+
+### Sep 02, 2026 - Connect Flask to MariaDB
+- I can read result on site: `http://127.0.0.1:5000/test-db` "Database connection OK: 248"

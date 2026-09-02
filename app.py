@@ -57,5 +57,12 @@ def get_books():
     books = Book.query.all()
     return render_template('books.html', books=books)
 
+@app.route('/books/<int:book_id>')
+def book_detail(book_id):
+
+    book = db.get_or_404(Book, book_id)
+
+    return render_template('book_detail.html', book=book)
+
 if __name__ == '__main__':
     app.run(debug=True)

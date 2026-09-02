@@ -94,3 +94,5 @@ The project is being developed incrementally, starting with a basic Flask applic
 
 ### Sep 02, 2026 - Connect Flask to MariaDB
 - I can read result on site: `http://127.0.0.1:5000/test-db` "Database connection OK: 248"
+- Create `templates/books.html` and show complete table on address: `http://127.0.0.1/books`
+- Create `templates/book_detail.html` and add link for details of book.

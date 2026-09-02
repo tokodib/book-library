@@ -1,9 +1,9 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import text
+from sqlalchemy import text, or_
 
 load_dotenv()
 
@@ -54,7 +54,23 @@ def test_db():
 
 @app.route('/books')
 def get_books():
-    books = Book.query.all()
+
+    search = request.args.get('search', '')
+    print("SEARCH:", search)
+    if search:
+        search_pattern = f'%{search}%'
+
+        books = Book.query.filter(
+            or_(
+                Book.Cim.ilike(search_pattern),
+                Book.Iro.ilike(search_pattern),
+                Book.Kiado.ilike(search_pattern),
+                Book.Tema.ilike(search_pattern)
+            )
+        ).all()
+    else:
+        books = Book.query.all()
+
     return render_template('books.html', books=books)
 
 @app.route('/books/<int:book_id>')

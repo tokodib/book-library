@@ -97,3 +97,8 @@ The project is being developed incrementally, starting with a basic Flask applic
 - Create `templates/books.html` and show complete table on address: `http://127.0.0.1/books`
 - Create `templates/book_detail.html` and add link for details of book.
 - Insert search box, search button, search option is `app.py` and no book found in `books.html`
+
+### Sep 03,2026 - Create route and template add_books
+- Create route add_book and HTML template add_book
+- Create route edit_book and HTML template edit_book
+- Add links for Add Book, Edit Book, Cancel editing, Back to books

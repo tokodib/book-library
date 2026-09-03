@@ -6,6 +6,9 @@
 </head>
 <body>
     <h1>Book Library</h1>
+    <br>
+    <a href="{{ url_for('add_book') }}">Add New Book</a>
+    <br>
     <form method="get" action="{{ url_for('get_books') }}">
         <input type="text" name="search" placeholder="Search by title" value="{{ request.args.get('search', '') }}">
         <button type="submit">Search</button>

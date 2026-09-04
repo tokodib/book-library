@@ -56,11 +56,11 @@ The existing database contains the current book collection and serves as the sta
 
 The project is planned to include:
 
-- Python
-- Flask
-- MariaDB
-- SQLAlchemy
-- Git / GitHub
+[x] Python
+[x] Flask
+[x] MariaDB
+[x] SQLAlchemy
+[x] Git / GitHub
 - Docker
 - Docker Compose
 - Docker Swarm
@@ -76,7 +76,7 @@ The project is planned to include:
 The project is being developed incrementally, starting with a basic Flask application and gradually adding database integration, containerization, CI/CD and orchestration.
 
 ### Aug 31, 2026 - Initial project setup
-- Create: .gitignore
+- Created: .gitignore
 - `python3 -m venv .venv` - Create virtual environment
 - `source .venv/bin/activate` - Activating VE
 - `pip install Flask`
@@ -94,11 +94,14 @@ The project is being developed incrementally, starting with a basic Flask applic
 
 ### Sep 02, 2026 - Connect Flask to MariaDB
 - I can read result on site: `http://127.0.0.1:5000/test-db` "Database connection OK: 248"
-- Create `templates/books.html` and show complete table on address: `http://127.0.0.1/books`
-- Create `templates/book_detail.html` and add link for details of book.
+- Created `templates/books.html` and show complete table on address: `http://127.0.0.1/books`
+- Created `templates/book_detail.html` and add link for details of book.
 - Insert search box, search button, search option is `app.py` and no book found in `books.html`
 
 ### Sep 03,2026 - Create route and template add_books
-- Create route add_book and HTML template add_book
-- Create route edit_book and HTML template edit_book
-- Add links for Add Book, Edit Book, Cancel editing, Back to books
+- Created route add_book and HTML template add_book
+- Created route edit_book and HTML template edit_book
+- Added links for Add Book, Edit Book, Cancel editing, Back to books
+
+### Sep 04,2026 - Delete book route
+- Created Delete book route

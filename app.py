@@ -117,7 +117,12 @@ def edit_book(book_id):
         return redirect(url_for('book_detail', book_id=book.ID))
     return render_template('edit_book.html', book=book)
 
-    
+@app.route('/books/<int:book_id>/delete', methods=['POST'])
+def delete_book(book_id):
+    book = db.get_or_404(Book, book_id)
+    db.session.delete(book)
+    db.session.commit()
+    return redirect(url_for('get_books'))   
 
 if __name__ == '__main__':
     app.run(debug=True)

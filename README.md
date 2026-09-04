@@ -50,24 +50,25 @@ The original application was developed with:
 - ZeosDB
 - MariaDB
 
-The existing database contains the current book collection and serves as the starting point for the new web application.
+The existing database contains my current book collection and serves as the starting point for the new web application.
 
 ## Planned technologies
 
 The project is planned to include:
 
-[x] Python
-[x] Flask
-[x] MariaDB
-[x] SQLAlchemy
-[x] Git / GitHub
-- Docker
-- Docker Compose
-- Docker Swarm
-- CI/CD
-- GitHub Actions
-- Kubernetes / k3s
-- Linux
+- [x] Python
+- [x] Flask
+- [x] MariaDB
+- [x] SQLAlchemy
+- [x] Git / GitHub
+- [ ] Docker
+- [ ] Docker Compose
+- [ ] Docker Swarm
+- [ ] CI/CD
+- [ ] GitHub Actions
+- [ ] Kubernetes / k3s
+- [x] Linux
+- [ ] Deployment and troubleshooting
 
 ## Project status
 
@@ -75,33 +76,54 @@ The project is planned to include:
 
 The project is being developed incrementally, starting with a basic Flask application and gradually adding database integration, containerization, CI/CD and orchestration.
 
-### Aug 31, 2026 - Initial project setup
-- Created: .gitignore
-- `python3 -m venv .venv` - Create virtual environment
-- `source .venv/bin/activate` - Activating VE
-- `pip install Flask`
-- `pip freeze > requirements.txt` - save independecies
-- create **app.py** and run with `python app.py` command in terminal.
-- I can see result in internet browser on address `http://127.0.0.1:5000` ("Book Library is running!")
+### August 31, 2026 - Initial project setup
+- Created `.gitignore`
+- Created the Python virtual environment: `python3 -m venv .venv` 
+- Activated the virtual environment: `source .venv/bin/activate`
+- Installed Flask: `pip install Flask`
+- saved the installed dependecies: `pip freeze > requirements.txt`
+- Created: `app.py`
+- Started the Flask development server with: `python app.py`
+- Verified that the application was accessible at: `http://127.0.0.1:5000` 
+**"Book Library is running!"**
 - 
-**VS code->Python->Flask->http://127.0.0.1:5000->Book Library is running!**
+**VS Code → Python → Flask → Browser → Book Library is running!**
 
-### Aug 31, 2026 - Flask - SQLAlchemy PyMySQL
-- `pip install Flask-SQLAlchemy PyMySQL` -> for communicating with MariaDB
-- `pip install python-dotenv` -> for handling .env files
-- `pip freeze > requirements.txt`
-- creating .env secret file
+### August 31, 2026 - Flask, SQLAlchemy and PyMySQL
+- Installed Flask-SQLAlchemy and PyMySQL: `pip install Flask-SQLAlchemy PyMySQL` -
+- Installed python-dotenv for environment variable management: `pip install python-dotenv`
+- Updated `requirements.txt`
+- Created the `.env` file for database configuration and secrets
 
-### Sep 02, 2026 - Connect Flask to MariaDB
-- I can read result on site: `http://127.0.0.1:5000/test-db` "Database connection OK: 248"
-- Created `templates/books.html` and show complete table on address: `http://127.0.0.1/books`
-- Created `templates/book_detail.html` and add link for details of book.
-- Insert search box, search button, search option is `app.py` and no book found in `books.html`
+### September 02, 2026 - Connect Flask to MariaDB
+- Connected the Flask application to the existing MariaDB database
+- Created `Book` SQLAlchemy model for the existing `konyvek` table
+- Created the `/test-db` route to test the database connection
+- Verified the database connection: **Database connection OK: 248**
+- Created `templates/books.html`
+- Displayed the complete book collection in the web browser
+- Created `templates/book_detail.html`
+- Added links to individual book details
+- Added a search box and search functionality
+- Added a **"No books found"** message when the search returns no results
 
-### Sep 03,2026 - Create route and template add_books
-- Created route add_book and HTML template add_book
-- Created route edit_book and HTML template edit_book
-- Added links for Add Book, Edit Book, Cancel editing, Back to books
+### September 03, 2026 - Create and edit books
+- Created the `/add-book` route
+- Created `templates/add_book.html`
+- Added the ability to create new books
+- Created the `/books/<id>/edit` route
+- Created `templates/edit_book.html`
+- Added the ability to edit existing books
+- Added navigation links for:
+  - Add Book
+  - Edit Book
+  - Cancel
+  - Back to Book List
 
-### Sep 04,2026 - Delete book route
-- Created Delete book route
+### September 04, 2026 - Delete books and code cleanup
+- Created the `/books/<id>/delete` route
+- Added a confirmation dialog before deleting book
+- Tested the delete functionality
+- Cleaned up the HTML templates
+- Removed development-only debug `print()` statements
+- Verified thet the application still works after the clean up

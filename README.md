@@ -127,3 +127,9 @@ The project is being developed incrementally, starting with a basic Flask applic
 - Cleaned up the HTML templates
 - Removed development-only debug `print()` statements
 - Verified thet the application still works after the clean up
+
+### September 05, 2026 - Testing the application
+- Activated virtual environment: `source .venv/bin/activate`
+- Installed pytest pip module: `pip install pytest`
+- Created new folder and files: `mkdir tests` and `touch tests/test_app.py`, `__init__.py`
+- Executed the test: `pytest`

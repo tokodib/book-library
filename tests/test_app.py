@@ -1,4 +1,4 @@
-from app import app
+from app import app, Book
 
 
 def test_home_page():
@@ -24,3 +24,15 @@ def test_books_page():
 
     assert response.status_code == 200
     assert b"Book Library" in response.data
+
+def test_book_detail():
+    client = app.test_client()
+
+    with app.app_context():
+        book = Book.query.first()
+
+    response = client.get(f'/books/{book.ID}')
+
+    assert response.status_code == 200
+    assert book.Cim.encode() in response.data
+

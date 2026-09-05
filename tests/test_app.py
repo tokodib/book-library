@@ -36,3 +36,32 @@ def test_book_detail():
     assert response.status_code == 200
     assert book.Cim.encode() in response.data
 
+def test_add_book_page():
+    client = app.test_client()
+
+    response = client.get('/add-book')
+
+    assert response.status_code == 200
+    assert b"Add Book" in response.data
+
+def test_edit_book_page():
+    client = app.test_client()
+
+    with app.app_context():
+        book = Book.query.first()
+
+    response = client.get(f'/books/{book.ID}/edit')
+
+    assert response.status_code == 200
+    assert book.Cim.encode() in response.data
+
+def test_delete_book_reuires_post():
+    client = app.test_client()
+
+    with app.app_context():
+        book = Book.query.first()
+
+    response = client.get(f'/books/{book.ID}/delete')
+
+    assert response.status_code == 405
+

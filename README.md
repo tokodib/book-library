@@ -76,6 +76,8 @@ The project is planned to include:
 
 The project is being developed incrementally, starting with a basic Flask application and gradually adding database integration, containerization, CI/CD and orchestration.
 
+## Development Log
+
 ### August 31, 2026 - Initial project setup
 - Created `.gitignore`
 - Created the Python virtual environment: `python3 -m venv .venv` 
@@ -133,3 +135,91 @@ The project is being developed incrementally, starting with a basic Flask applic
 - Installed pytest pip module: `pip install pytest`
 - Created new folder and files: `mkdir tests` and `touch tests/test_app.py`, `__init__.py`
 - Executed the test: `pytest`
+- Created a separate `konyvek_test` MariaDB database
+- Added tests for:
+  - application startup
+  - database connection
+  - book listing
+  - book details
+  - adding books
+  - editing books
+  - deleting books
+  - HTTP method validation
+  - 
+The test suite reached:
+10 passed
+
+### September  06, 2026 - GitHub Actions CI
+- Created a GitHub Action workflow
+- Added `.github/workflows/tests.yml`
+- Configured the workflow to run on:
+  - pushes to `main`
+  - pull requests targeting `main`
+- Configured an Ubuntu runner
+- Added Python 3.12
+- Added a MariaDB 11 service container
+- Created the `konyvek_test` database automatically in the CI environment
+- Installed project dependencies from `requirements.txt`
+- Configure database environment variables for the test environment
+- Added automatic axecution of the pytest test suite
+
+The first GitHub Actions workflow completed successfully:
+
+✅ 10 tests passed
+
+The current CI flow is:
+```text
+Git push
+    ↓
+GitHub Actions
+    ↓
+Ubuntu runner
+    ↓
+Python 3.12
+    ↓
+MariaDB 11
+    ↓
+konyvek_test
+    ↓
+pytest
+    ↓
+✅ Tests passed
+```
+
+
+## Current architecture
+
+The application currently consists of:
+
+```text
+Browser
+   │
+   ▼
+Flask application
+   │
+   ▼
+SQLAlchemy
+   │
+   ▼
+MariaDB
+   │
+   └── konyvek
+```
+Automated testing uses a separate database:
+
+```text
+pytest
+   │
+   ▼
+Flask test application
+   │
+   ▼
+SQLAlchemy
+   │
+   ▼
+MariaDB
+   │
+   └── konyvek_test
+```
+
+GitHub Actions creates an isolated CI environment where the test suite can run without accessing the real book database.

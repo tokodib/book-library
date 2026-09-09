@@ -1,0 +1,7 @@
+services:
+  book-library:
+    build: .
+    container_name: book-library
+    network_mode: host
+    env_file:
+      - .env  

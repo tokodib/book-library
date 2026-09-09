@@ -223,3 +223,9 @@ MariaDB
 ```
 
 GitHub Actions creates an isolated CI environment where the test suite can run without accessing the real book database.
+
+### September 7-9, 2026 - Creating Docker 
+-  Created `Dockerfile` and `.dockerignore`
+-  Builded docker image `docker build -t book-library`
+-  Setting up the docker container for SSH tunnel
+-  Created `compose.yaml` for docker compose

@@ -2,6 +2,16 @@ services:
   book-library:
     build: .
     container_name: book-library
-    network_mode: host
     env_file:
       - .env  
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "5000:5000"
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/test-db')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

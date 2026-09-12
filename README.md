@@ -229,3 +229,13 @@ GitHub Actions creates an isolated CI environment where the test suite can run w
 -  Builded docker image `docker build -t book-library`
 -  Setting up the docker container for SSH tunnel
 -  Created `compose.yaml` for docker compose
+-  
+### September 12, 2026 
+- Installed `pip install gunicorn`, added it to `requiremets.txt`
+- Changed Dockerfile to run the Flask application with Gunicorn
+- `CMD ["python", "app.py"]` ➜ `CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]`
+- Configured Gunicorn with 4 workers
+- Rebuild and tested the Docker container
+- Tested the database connection successfully
+- Added Docker healthcheck
+- Verified that the container status is `healthy`

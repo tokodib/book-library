@@ -9,6 +9,10 @@ on:
         branches:
             - main
 
+permissions:
+    contents: read
+    packages: write
+
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -48,5 +52,14 @@ jobs:
                 DB_NAME: konyvek_test
               run: pytest -v
 
+            - name: Log in to GHCR
+              uses: docker/login-action@v3
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
             - name: Build docker image
-              run: docker build -t book-library .
+              run: docker build -t ghcr.io/tokodib/book-library:latest .
+
+            - name: Push docker image
+              run: docker push ghcr.io/tokodib/book-library:latest

@@ -47,3 +47,6 @@ jobs:
                 DB_PORT: 3306
                 DB_NAME: konyvek_test
               run: pytest -v
+
+            - name: Build docker image
+              run: docker build -t book-library .

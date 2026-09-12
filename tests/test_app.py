@@ -3,9 +3,11 @@ import os
 import pytest
 from dotenv import load_dotenv
 
+load_dotenv(".env.test")
+
 from app import create_app, db, Book
 
-load_dotenv()
+
 
 @pytest.fixture
 def app():

@@ -239,3 +239,6 @@ GitHub Actions creates an isolated CI environment where the test suite can run w
 - Tested the database connection successfully
 - Added Docker healthcheck
 - Verified that the container status is `healthy`
+- Added `RUN useradd --create-home appuser` `USER appuser` in Dockerfile
+- Created `appuser` in container 
+- Fixing python version in dockerfile: `FROM python:3.12.14-slim`

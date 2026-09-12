@@ -44,7 +44,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return "Book Library is running! Docker Test."
+        return "Book Library is running! Docker Test 2."
 
     @app.route('/test-db')
     def test_db():

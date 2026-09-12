@@ -242,3 +242,7 @@ GitHub Actions creates an isolated CI environment where the test suite can run w
 - Added `RUN useradd --create-home appuser` `USER appuser` in Dockerfile
 - Created `appuser` in container 
 - Fixing python version in dockerfile: `FROM python:3.12.14-slim`
+- Modified GitHub Actions workflow to build and push the Docker image to GHCR
+- Deployed the Docker image from GHCR to the Ubuntu server
+- Connected the Book Library container to the existing `database-net`
+- Tested the production container and database connection

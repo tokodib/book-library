@@ -91,3 +91,16 @@ jobs:
               run: |
                 ping -c 4 10.10.10.1
                 ping -c 4 192.168.1.201
+
+            - name: Test SSH connection
+              env:
+                SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}  
+              run: |
+                mkdir -p ~/.ssh
+                echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+                chmod 600 ~/.ssh/deploy_key
+
+                ssh -i ~/.ssh/deploy_key \
+                    -o StrictHostKeyChecking=no \
+                    axion@192.168.1.201 \
+                    "hostname && whoami"

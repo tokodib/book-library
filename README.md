@@ -246,3 +246,16 @@ GitHub Actions creates an isolated CI environment where the test suite can run w
 - Deployed the Docker image from GHCR to the Ubuntu server
 - Connected the Book Library container to the existing `database-net`
 - Tested the production container and database connection
+
+### September 13, 2026
+- Configured WireGuard VPN on the MikroTik router
+- Created a separate WireGuard key pair for the deployment connection
+- Configured the MikroTik router as a WireGuard VPN endpoint
+- Configured SSH key-based access to the Ubuntu server
+- Tested remote access to the Ubuntu server through WireGuard
+- Found an MTU problem that caused SSH connections to get stuck during key exchange
+- Tetsted the maximum packet size with `ping -M do`
+- Reduced the WireGuard client MTU from `1420` to `1360`
+- Verified that SSH works correctly after the MTU change
+- Tested access to services running on the Ubuntu server through the VPN
+- The VPN connection can now reach the internal Ubuntu server without exposing SSH directly to the Internet

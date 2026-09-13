@@ -63,3 +63,31 @@ jobs:
 
             - name: Push docker image
               run: docker push ghcr.io/tokodib/book-library:latest
+
+            - name: Set up WireGuard
+              env:
+                WG_PRIVATE_KEY: ${{ secrets.WG_PRIVATE_KEY }}
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y wireguard
+
+                sudo sh -c "cat > /etc/wireguard/github-test.conf <<EOF
+                [Interface]
+                PrivateKey = ${WG_PRIVATE_KEY}
+                Address = 10.10.10.2/24
+                MTU = 1360
+
+                [Peer]
+                PublicKey = nn5AjGChtMvdNbJsFV3xgiRK7w+ohCm6Vgl7im0qA3g=
+                AllowedIPs = 10.10.10.0/24, 192.168.1.201/32
+                Endpoint = 46.40.41.66:51820
+                PersistentKeepalive = 25
+                EOF"
+
+                sudo chmod 600 /etc/wireguard/github-test.conf
+                sudo wg-quick up github-test
+
+            - name: Test WireGuard connection
+              run: |
+                ping -c 4 10.10.10.1
+                ping -c 4 192.168.1.201

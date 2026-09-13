@@ -117,4 +117,4 @@ jobs:
                 ssh -i ~/.ssh/deploy_key \
                     -o StrictHostKeyChecking=no \
                     axion@192.168.1.201 \
-                    "cd ~/docker/book-library && docker compose pull"
+                    "docker pull ghcr.io/tokodib/book-library:latest"

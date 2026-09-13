@@ -122,4 +122,8 @@ jobs:
                     -o StrictHostKeyChecking=no \
                     -o ConnectTimeout=10 \
                     axion@192.168.1.201 \
-                    "cd ~/docker/book-library && docker compose pull && docker compose up -d"
+                    "cd ~/docker/book-library && \
+                    docker compose pull && \
+                    docker compose up -d && \
+                    docker compose ps && \
+                    docker compose logs --tail=20"

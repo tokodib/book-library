@@ -104,3 +104,10 @@ jobs:
                     -o StrictHostKeyChecking=no \
                     axion@192.168.1.201 \
                     "hostname && whoami"
+
+            - name: Check Docker Compose
+              run: |
+                ssh -i ~/.ssh/deploy_key \
+                    -o StrictHostKeyChecking=no \
+                    axion@192.168.1.201 \
+                    "cd ~/docker/book-library && docker compose ps"

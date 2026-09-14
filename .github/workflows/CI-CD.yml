@@ -102,12 +102,13 @@ jobs:
                 SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}  
               run: |
                 mkdir -p ~/.ssh
+                echo "192.168.1.201 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ53eX5tlOgXHg0eWC2V9C9gGfemkyFVoliutkJ+Z6yg" > ~/.ssh/known_hosts
+                
                 echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
                 chmod 600 ~/.ssh/deploy_key
 
                 ssh -vv \
                     -i ~/.ssh/deploy_key \
-                    -o StrictHostKeyChecking=no \
                     -o ConnectTimeout=10 \
                     axion@192.168.1.201 \
                     "hostname && whoami"

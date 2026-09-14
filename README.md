@@ -61,14 +61,14 @@ The project is planned to include:
 - [x] MariaDB
 - [x] SQLAlchemy
 - [x] Git / GitHub
-- [ ] Docker
-- [ ] Docker Compose
+- [x] Docker
+- [x] Docker Compose
 - [ ] Docker Swarm
-- [ ] CI/CD
-- [ ] GitHub Actions
+- [x] CI/CD
+- [x] GitHub Actions
 - [ ] Kubernetes / k3s
 - [x] Linux
-- [ ] Deployment and troubleshooting
+- [x] Deployment and troubleshooting
 
 ## Project status
 
@@ -128,7 +128,7 @@ The project is being developed incrementally, starting with a basic Flask applic
 - Tested the delete functionality
 - Cleaned up the HTML templates
 - Removed development-only debug `print()` statements
-- Verified thet the application still works after the clean up
+- Verified that the application still works after the clean up
 
 ### September 05, 2026 - Testing the application
 - Activated virtual environment: `source .venv/bin/activate`
@@ -161,7 +161,7 @@ The test suite reached:
 - Created the `konyvek_test` database automatically in the CI environment
 - Installed project dependencies from `requirements.txt`
 - Configure database environment variables for the test environment
-- Added automatic axecution of the pytest test suite
+- Added automatic execution of the pytest test suite
 
 The first GitHub Actions workflow completed successfully:
 
@@ -220,13 +220,11 @@ SQLAlchemy
 MariaDB
    │
    └── konyvek_test
+
 ```
-
-GitHub Actions creates an isolated CI environment where the test suite can run without accessing the real book database.
-
 ### September 7-9, 2026 - Creating Docker 
 -  Created `Dockerfile` and `.dockerignore`
--  Builded docker image `docker build -t book-library`
+-  Built docker image `docker build -t book-library`
 -  Setting up the docker container for SSH tunnel
 -  Created `compose.yaml` for docker compose
 -  
@@ -235,7 +233,7 @@ GitHub Actions creates an isolated CI environment where the test suite can run w
 - Changed Dockerfile to run the Flask application with Gunicorn
 - `CMD ["python", "app.py"]` ➜ `CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]`
 - Configured Gunicorn with 4 workers
-- Rebuild and tested the Docker container
+- Rebuilt and tested the Docker container
 - Tested the database connection successfully
 - Added Docker healthcheck
 - Verified that the container status is `healthy`
@@ -254,8 +252,69 @@ GitHub Actions creates an isolated CI environment where the test suite can run w
 - Configured SSH key-based access to the Ubuntu server
 - Tested remote access to the Ubuntu server through WireGuard
 - Found an MTU problem that caused SSH connections to get stuck during key exchange
-- Tetsted the maximum packet size with `ping -M do`
+- Tested the maximum packet size with `ping -M do`
 - Reduced the WireGuard client MTU from `1420` to `1360`
 - Verified that SSH works correctly after the MTU change
 - Tested access to services running on the Ubuntu server through the VPN
 - The VPN connection can now reach the internal Ubuntu server without exposing SSH directly to the Internet
+- Added WireGuard setup to the GitHub Action workflow
+- Added SSH connection testing to the GitHub Actios workflow
+- Added automatic Docker image deployment to the Ubuntu server
+- Tested pulling the Docker image from GHCR through the deployment server
+- Tested automatic container recreation with Docker Compose
+- Investigated intermittent network problems affecting the WireGuard connection
+- Found packet loss through the WireGuard connection while the normal LAN connection remained stable
+ 
+ 
+## **Deployment architecture**
+
+```text
+The current deployment flow is:
+
+Git push
+    │
+    ▼
+GitHub Actions
+    │
+    ├── Run pytest
+    │
+    ├── Build Docker image
+    │
+    ├── Push image to GHCR
+    │
+    ├── Connect through WireGuard
+    │
+    ├── Connect to Ubuntu server through SSH
+    │
+    └── docker compose pull
+             │
+             ▼
+        docker compose up -d
+             │
+             ▼
+        Book Library
+             │
+             ▼
+          MariaDB
+```
+
+The production application runs on an Ubuntu server using Docker Compose.
+
+The MariaDB container runs on the same server and the Book Library container connects to it through the existing Docker `database-net` network.
+
+SSH is not exposed directly to the Internet. GitHub Actions reaches the server through a WireGuard VPN connection.
+
+The Docker image is stored in GitHub Container Registry (GHCR).
+
+## **Troubleshooting**
+
+During testing of the automatic deployment, intermittent connectivity problems were found.
+
+The normal LAN connection to the Ubuntu server showed 0% packet loss, while the same connection through WireGuard showed packet loss.
+
+This caused intermittent SSH connection failures and interrupted long-running operations such as Docker image pulls.
+
+The problem is still being investigated.
+
+
+GitHub Actions creates an isolated CI environment where the test suite can run without accessing the real book database.

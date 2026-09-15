@@ -318,3 +318,24 @@ The problem is still being investigated.
 
 
 GitHub Actions creates an isolated CI environment where the test suite can run without accessing the real book database.
+
+### September 15,2026 - CI/CD
+
+- Changed the Docker image tag from `latest` to the Git commit SHA
+- Built Docker image usein `{{ github.sha}}`
+- Pushed the commit-based Docker image to GHCR
+- Changed the production Docker Compose configuration to use the `IMAGE_TAG` environment variable
+- Passed the Git commit SHA from GitHub Actions to the deployment server
+- Tested the deployment with an immutable Docker image tag
+- Verified that the Ubuntu server pulled the exact Docker image created by  the current Git commit
+- Changed the deployment script to export `IMAGE_TAG` once for the whole SSH session
+- Verified that the `docker compose pull`, `docker compose up -s` and `docker compose ps` use the same image tag
+- Removed the `IMAGE_TAG` warning form the deployment
+- Verified that the container was recreated successfully with the commit-based image
+- Verified the complete CI/CD workflow from Git push to the running container
+- Tested a manual rollback to a previous Docker image using its Git commit SHA
+- Verified that the previous image was already avalailable on the server and did not need to be rebuilt
+- Verified that the rolled-back container started successfully and became healthy
+- Tested switching back to the newer image using its Git commit SHA
+- Verified that the newer container also started successfully and became healthy
+- The application can now be manually rolled back to a previous Docker image version

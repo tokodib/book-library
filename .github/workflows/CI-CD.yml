@@ -125,7 +125,7 @@ jobs:
                     -o ConnectTimeout=10 \
                     axion@192.168.1.201 \
                     "cd ~/docker/book-library && \
-                    docker compose pull && \
-                    docker compose up -d && \
+                    IMAGE_TAG=${{ github.sha }} docker compose pull && \
+                    IMAGE_TAG=${{ github.sha }} docker compose up -d && \
                     docker compose ps && \
                     echo DEPLOY_OK"

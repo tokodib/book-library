@@ -18,7 +18,7 @@ permissions:
 jobs:
     test:
         runs-on: ubuntu-latest
-     
+
         services:
             mariadb:
                 image: mariadb:11
@@ -81,7 +81,7 @@ jobs:
 
                 [Peer]
                 PublicKey = nn5AjGChtMvdNbJsFV3xgiRK7w+ohCm6Vgl7im0qA3g=
-                AllowedIPs = 10.10.10.0/24, 192.168.1.201/32
+                AllowedIPs = 10.10.10.0/24, 192.168.1.130/32
                 Endpoint = 46.40.41.66:51820
                 PersistentKeepalive = 25
                 EOF"
@@ -92,41 +92,40 @@ jobs:
             - name: Test WireGuard connection
               run: |
                 ping -c 4 10.10.10.1
-                ping -c 4 192.168.1.201
+                ping -c 4 192.168.1.130
 
             - name: Test SSH port
               run: |
-                nc -vz -w 10 192.168.1.201 22                
+                nc -vz -w 10 192.168.1.130 22
             - name: Test SSH connection
               env:
-                SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}  
+                SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
               run: |
                 mkdir -p ~/.ssh
-                echo "192.168.1.201 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ53eX5tlOgXHg0eWC2V9C9gGfemkyFVoliutkJ+Z6yg" > ~/.ssh/known_hosts
-                
+                echo "192.168.1.130 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEhoqFXSxyPbk5t35JLdGArOxJNPSSdyJPjg5kcAb8O3" > ~/.ssh/known_hosts
+
                 echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
                 chmod 600 ~/.ssh/deploy_key
 
                 ssh -vv \
                     -i ~/.ssh/deploy_key \
                     -o ConnectTimeout=10 \
-                    axion@192.168.1.201 \
+                    automation@192.168.1.130 \
                     "hostname && whoami"
 
             - name: Check Docker Compose
               run: |
                 ssh -i ~/.ssh/deploy_key \
-                    axion@192.168.1.201 \
+                    automation@192.168.1.130 \
                     "cd ~/docker/book-library && docker compose ps"
-            
+
             - name: Deploy application
               run: |
                 ssh -i ~/.ssh/deploy_key \
                     -o ConnectTimeout=10 \
-                    axion@192.168.1.201 \
+                    automation@192.168.1.130 \
                     "cd ~/docker/book-library && \
-                    export IMAGE_TAG=${{ github.sha }} && \
-                    docker compose pull && \
-                    docker compose up -d && \
+                    git pull --ff-only origin main && \
+                    docker compose up -d --build && \
                     docker compose ps && \
                     echo DEPLOY_OK"

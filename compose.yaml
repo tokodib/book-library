@@ -3,14 +3,13 @@ services:
     build: .
     container_name: book-library
     env_file:
-      - .env  
+      - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
       - "5000:5000"
     networks:
       - database-net
-
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/test-db')"]
       interval: 30s
@@ -20,4 +19,5 @@ services:
 
 networks:
   database-net:
-     external: true
+    external: true
+
